@@ -1,0 +1,26 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 
+        "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
+        "Fira Sans", "Droid Sans", "Helvetica Neue", 
+        sans-serif !important;
+}
+
+label {
+    width: 120px;
+    display: block;
+    float: left;
+}
+
+td {
+    vertical-align: top;
+}
+
+#queryResults {
+    width: 50vw;
+    height: 50vh; 
+    border-style: solid;
+    border-width: 1px;
+    font-family: monospace;
+    white-space: pre;
+    overlap: scroll;
+}

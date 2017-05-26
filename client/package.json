@@ -1,0 +1,22 @@
+{
+  "name": "tabix-client",
+  "version": "1.0.0",
+  "description": "Sends requests to server for tabix-indexed data and prints results",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "tabix-service"
+  },
+  "author": "Alex Reynolds",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "path": "^0.12.7",
+    "request": "^2.81.0",
+    "winston": "^2.3.1"
+  }
+}

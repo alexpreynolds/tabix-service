@@ -51,5 +51,34 @@ To install Node.js:
 ```
 $ sudo yum install epel-release
 $ sudo yum install nodejs
+$ sudo yum install npm
 ```
 
+### Tabix server and client
+
+Install the Node.js dependencies, if not installed:
+
+```
+$ cd tabix-service/server
+$ npm install
+$ cd ../client
+$ npm install
+```
+
+## Starting Tabix service
+
+```
+$ cd tabix-service/server
+$ export TABIX_SERVER_PORT=1234
+$ node app.js
+```
+
+## Starting Tabix test client
+
+```
+$ cd tabix-service/client
+$ export TABIX_CLIENT_PORT=4567
+$ node app.js
+```
+
+Then visit <a href="http://localhost:4567">http://localhost:4567</a> to run test queries.

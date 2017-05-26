@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  </head>
+  <body>
+    <h3>Tabix client</h3>
+    <p>This application demonstrates making GET requests to the Tabix service, which could be used with d3.js or other applications to retrieve subsets of BED-formatted genomic data stored in Tabix-indexed archives.</p>
+    <table>
+      <tr>
+	<td style="padding-right:20px">
+	  <h4>Search parameters</h4>
+	  <form id="tabixQuery" title="tabixQuery" method="get">
+	    <div>
+              <label class="region">Dataset</label>
+              <input type="text" id="dataset" name="dataset" value="sample" />
+	    </div>
+	    <div>
+              <label class="region">Chromosome</label>
+              <input type="text" id="chromosome" name="chr" value="chr1" />
+	    </div>
+	    <div>
+              <label class="region">Start</label>
+              <input type="text" id="start" name="start" value="10000000" />
+	    </div>
+	    <div>
+              <label class="region">Stop</label>
+              <input type="text" id="stop" name="stop" value="11000000" />
+	    </div>
+	    <div>
+              <input type="submit" id="submitButton"  name="submitButton" value="Submit"/>
+	    </div>
+	  </form>
+	</td>
+	<td>
+	  <h4>Results</h4>
+	  <div id="queryResults" />
+	</td>
+      </tr>
+    </table>
+  </body>
+  <script src="js/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $("#tabixQuery").submit(function(event) {
+	event.preventDefault();
+	var url = "http://localhost:1234";
+	
+	$.get(url, 
+	      {
+		  dataset: $('#dataset').val(), 
+		  chr: $('#chromosome').val(),
+		  start: $('#start').val(),
+		  stop: $('#stop').val()
+	      } 
+	     )
+	    .done(function(data) {
+		$('#queryResults').empty().append(data);
+	    });
+    });
+  </script>
+</html>
