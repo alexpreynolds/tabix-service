@@ -3,7 +3,7 @@ A nodejs-based service for requests for tabix-indexed genomic data
 
 ## Prerequisites
 
-These instructions assume a CentOS 7 host and sudo-level access.
+These instructions assume a CentOS 7 host and sudo-level access. It's probably easiest to set up a virtual host and run these tests within that host.
 
 ### `htslib` toolkit
 
