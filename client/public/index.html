@@ -7,26 +7,27 @@
     <p>This application demonstrates making GET requests to the Tabix service, which could be used with d3.js or other applications to retrieve subsets of BED-formatted genomic data stored in Tabix-indexed archives.</p>
     <table>
       <tr>
-	<td style="padding-right:20px">
+	<td class="searchParameters">
 	  <h4>Search parameters</h4>
 	  <form id="tabixQuery" title="tabixQuery" method="get">
-	    <div>
+	    <div class="formElement">
               <label class="region">Dataset</label>
               <input type="text" id="dataset" name="dataset" value="sample" />
 	    </div>
-	    <div>
+	    <div class="formElement">
               <label class="region">Chromosome</label>
               <input type="text" id="chromosome" name="chr" value="chr1" />
 	    </div>
-	    <div>
+	    <div class="formElement">
               <label class="region">Start</label>
               <input type="text" id="start" name="start" value="10000000" />
 	    </div>
-	    <div>
+	    <div class="formElement">
               <label class="region">Stop</label>
               <input type="text" id="stop" name="stop" value="11000000" />
 	    </div>
-	    <div>
+	    <div class="formElement">
+              <label class="submit">&nbsp;</label>	      
               <input type="submit" id="submitButton"  name="submitButton" value="Submit"/>
 	    </div>
 	  </form>
@@ -43,18 +44,23 @@
     $("#tabixQuery").submit(function(event) {
 	event.preventDefault();
 	var url = "http://localhost:1234";
-	
-	$.get(url, 
-	      {
-		  dataset: $('#dataset').val(), 
-		  chr: $('#chromosome').val(),
-		  start: $('#start').val(),
-		  stop: $('#stop').val()
-	      } 
-	     )
-	    .done(function(data) {
-		$('#queryResults').empty().append(data);
-	    });
+	$.ajax({
+	    beforeSend: function() { $('#queryResults').empty(); },
+	    type: "GET",
+	    url: url,
+	    data: {
+		dataset: $('#dataset').val(), 
+		chr: $('#chromosome').val(),
+		start: $('#start').val(),
+		stop: $('#stop').val()
+	    },
+	    success: function(data) {
+		$('#queryResults').append(data);
+	    },
+	    error: function(xhr, status, error) {
+		$('#queryResults').append("Error: " + JSON.stringify(xhr.responseText));
+	    }
+	});
     });
   </script>
 </html>

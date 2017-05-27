@@ -17,12 +17,8 @@ TabixServer.DefaultPort = 1234;
 
 TabixServer.CurrentDir = process.cwd();
 
-TabixServer.DatasetTypes = {
-    SAMPLE : 'sample'
-};
-
-TabixServer.DatasetPaths = {
-    SAMPLE : 'archives/sample.bed.gz'
+TabixServer.Datasets = {
+    SAMPLE : { 'name' : 'sample', 'path' : 'archives/sample.bed.gz' }
 };
 
 TabixServer.Logger = new (winston.Logger)({
@@ -56,14 +52,14 @@ TabixServer.App.use('/', function(req, res, next) {
 	var queryStr = JSON.stringify(query);
 	TabixServer.Logger.info(`request query: ${queryStr}`);
 	if (query.dataset) {
-	    if (query.dataset == TabixServer.DatasetTypes.SAMPLE) {
+	    if (query.dataset == TabixServer.Datasets.SAMPLE.name) {
 		if (query.chr && query.start && query.stop) {
 		    res.writeHead(200, {
 			"Content-Type": "text/plain",
 			"Cache-control": "no-cache",
 			"Access-Control-Allow-Origin": "*",
 		    });
-		    var tabixArchive = path.join(TabixServer.CurrentDir, TabixServer.DatasetPaths.SAMPLE);
+		    var tabixArchive = path.join(TabixServer.CurrentDir, TabixServer.Datasets.SAMPLE.path);
 		    var tabixROI = query.chr + ":" + query.start + "-" + query.stop;
 		    var tabixQuery = child_process.spawn('tabix', [tabixArchive, tabixROI]);
 		    var tabixResult = "";
@@ -80,7 +76,8 @@ TabixServer.App.use('/', function(req, res, next) {
 		}
 	    }
 	    else {
-		res.sendStatus(404);
+		TabixServer.Logger.error(`request dataset name unknown: ${query.dataset}`);
+		res.set({"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}).status(404).send({ "error" : "Unknown dataset" });
 		return;
 	    }
 	}
@@ -92,7 +89,8 @@ TabixServer.App.use('/', function(req, res, next) {
 	requestCorrect = false;
     }
     if (!requestCorrect) {
-	res.sendStatus(400);
+	TabixServer.Logger.error(`request malformed`);
+	res.set({"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}).status(400).send({ "error" : "Malformed request" });	
     }
 });
 

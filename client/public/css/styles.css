@@ -5,22 +5,38 @@ body {
         sans-serif !important;
 }
 
+h3, h4 {
+    margin-bottom: 10px;
+}
+
 label {
     width: 120px;
     display: block;
     float: left;
+    font-weight: bold;
+    font-size: smaller;
 }
 
 td {
     vertical-align: top;
 }
 
+.formElement {
+    padding-bottom: 5px;
+}
+
+.searchParameters {
+    padding-right: 20px;
+    width: 300px;
+}
+
 #queryResults {
-    width: 50vw;
-    height: 50vh; 
+    width: calc(100vw - 330px);
+    height: calc(100vh - 160px); 
     border-style: solid;
     border-width: 1px;
     font-family: monospace;
     white-space: pre;
-    overlap: scroll;
+    overflow: scroll;
+    padding: 5px;
 }
