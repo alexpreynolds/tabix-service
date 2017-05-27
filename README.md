@@ -82,3 +82,5 @@ $ node app.js
 ```
 
 Then visit <a href="http://localhost:4567">http://localhost:4567</a> to run test queries.
+
+![tabixservicesnapshot](https://cloud.githubusercontent.com/assets/33584/26523456/ca63436e-42cc-11e7-92ba-c2bedcc89812.png)
