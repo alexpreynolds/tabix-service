@@ -15,12 +15,13 @@ $ git clone git://github.com/samtools/bcftools.git
 $ sudo yum install zlib-devel
 $ sudo yum install bzip2-devel
 $ sudo yum install xz-devel
+$ sudo yum install curl-devel
 $ cd bcftools
 $ make
-$ make install
+$ sudo make install
 $ cd ../htslib
 $ make
-$ make install
+$ sudo make install
 ```
 
 This should put `bgzip` and `tabix` into `/usr/local/bin`.
